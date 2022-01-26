@@ -1,22 +1,31 @@
 import {
-  Box, Text, Flex,
+  Button, Container, Flex, Text,
 } from '@chakra-ui/react';
-import getCurrentTime from '../utilis/time';
+import Link from 'next/link';
+import InputBox from '../components/InputBox';
+import PasswordInput from '../components/PasswordInput';
 
 export default function Home() {
-  const { minutes, hour } = getCurrentTime();
   return (
-    <Flex justifyContent="center" textAlign="center" minH="100vh" alignItems="center">
-      <Box>
-        <Text decoration="underline">Project setup</Text>
-        <Text fontWeight="800" fontSize="3em" color="#1a2a3a">hello world</Text>
-        <Text fontSize="2em">
-          The time is
-          {' '}
-          { `${hour}:${minutes}` }
-          {' '}
-        </Text>
-      </Box>
+    <Flex direction="column" justify="center" align="center" minH="100vh">
+      <Container>
+        <Text fontSize="xl" textAlign="center" marginBottom="10" className="fst-italic">Log In</Text>
+        <form className="col-12">
+          <InputBox type="email" id="email" label="Email Address" />
+          <PasswordInput label="Password" />
+          <div>
+            <Button variant="solid" colorScheme="teal" className="col-12" w="100%" marginTop="5">Sign In</Button>
+            <div fontSize="xl" className="d-flex justify-content-between fst-italic mt-2">
+              <Text fontSize="sm">
+                {/* eslint-disable-next-line react/no-unescaped-entities */}
+                Don't have an account yet?
+                <Link href="/sign-up">Sign Up</Link>
+              </Text>
+              <Link href="/forgot-password" class="text-decoration-none"><Text fontSize="sm" className="labelForm text--primary">Forgot Password?</Text></Link>
+            </div>
+          </div>
+        </form>
+      </Container>
     </Flex>
   );
 }
