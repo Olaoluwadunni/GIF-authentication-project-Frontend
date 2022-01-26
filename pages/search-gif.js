@@ -3,9 +3,10 @@
 import { useState } from 'react';
 import Cookie from 'js-cookie';
 import Link from 'next/link';
-import { Flex, Text } from '@chakra-ui/react';
+import { Button, Flex, Text } from '@chakra-ui/react';
 import getGIF from '../services/getGIF';
 import { ReactComponent as Loader } from '../public/Spinner-1s-200px.svg';
+
 
 const Home = () => {
   const [searchInput, setSearchInput] = useState();
@@ -43,7 +44,10 @@ const Home = () => {
   };
   return (
     <div className="mt-4">
-      <Flex justifyContent="center" align="center" textAlign="center">
+      <Text textAlign="end" marginRight="5">
+        <Link href="/users">See Users</Link>
+      </Text>
+      <Flex justifyContent="center" align="center" textAlign="center" className="col-12 col-md-12">
         <form onSubmit={handleSubmit} className="d-flex mb-4 w-50">
           <input
             className="form-control me-2"
@@ -52,11 +56,7 @@ const Home = () => {
             placeholder="Type to search..."
             onChange={(e) => setSearchInput(e.target.value)}
           />
-          <input
-            className="btn btn-primary"
-            type="submit"
-            value="Search"
-          />
+          <Button variant="solid" colorScheme="teal" className="col-12">Search</Button>
         </form>
       </Flex>
       <hr />

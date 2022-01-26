@@ -21,7 +21,7 @@ export default function Home() {
                 Don't have an account yet?
                 <Link href="/sign-up">Sign Up</Link>
               </Text>
-              <Link href="/forgot-password" class="text-decoration-none"><Text fontSize="sm" className="labelForm text--primary">Forgot Password?</Text></Link>
+              <Text fontSize="sm" className="cursor-pointer"><Link href="/forgot-password" class="text-decoration-none">Forgot Password?</Link></Text>
             </div>
           </div>
         </form>
