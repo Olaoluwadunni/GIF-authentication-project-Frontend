@@ -7,7 +7,6 @@ import { Button, Flex, Text } from '@chakra-ui/react';
 import getGIF from '../services/getGIF';
 import { ReactComponent as Loader } from '../public/Spinner-1s-200px.svg';
 
-
 const Home = () => {
   const [searchInput, setSearchInput] = useState();
   const [gif, setGif] = useState([]);
