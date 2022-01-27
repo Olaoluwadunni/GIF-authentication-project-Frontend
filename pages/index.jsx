@@ -5,7 +5,7 @@ import Link from 'next/link';
 import InputBox from '../components/InputBox';
 import PasswordInput from '../components/PasswordInput';
 
-export default function Home() {
+function Home() {
   return (
     <Flex direction="column" justify="center" align="center" minH="100vh">
       <Container>
@@ -29,3 +29,5 @@ export default function Home() {
     </Flex>
   );
 }
+
+export default Home;
