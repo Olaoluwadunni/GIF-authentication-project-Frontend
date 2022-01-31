@@ -1,11 +1,14 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable object-shorthand */
 /* eslint-disable no-console */
 import { useState } from 'react';
+import { ArrowLeftIcon } from '@chakra-ui/icons';
 import {
   Button, Container, Flex, Text,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import axios from 'axios';
+import router from 'next/router';
 import InputBox from '../components/InputBox';
 import PasswordInput from '../components/PasswordInput';
 import { baseUrl1 } from '../helpers/variables';
@@ -26,70 +29,81 @@ const register = () => {
     })
       .then((response) => {
         console.log(response);
+        if (response.status === 201) {
+          router.push('/');
+        }
         console.log(name);
       }, (error) => {
         console.log(error);
       });
   };
   return (
-    <Flex direction="column" justify="center" align="center" minH="100vh">
-      <Container>
-        <Text fontSize="xl" textAlign="center" marginBottom="10" className="fst-italic">Sign Up</Text>
-        <form className="action" method="post">
-          <div className="row g-2">
-            <InputBox
-              type="text"
-              id="name"
-              label="Name"
-              className="col-md-6"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <InputBox
-              type="email"
-              id="email"
-              label="Email Address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <InputBox
-              type="number"
-              id="phoneNumber"
-              label="Phone Number"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-            <PasswordInput
-              value={password}
-              id="password"
-              label="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <PasswordInput
-              label="Confirm Password"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-            <Button
-              variant="solid"
-              colorScheme="teal"
-              className="col-12"
-              w="100%"
-              marginTop="5"
-              onClick={signUp}
-            >
-              Sign Up
+    <>
+      <Link href="/">
+        <a>
+          <ArrowLeftIcon marginTop="6" marginLeft="5" textAlign="start" />
+        </a>
+      </Link>
+      <Flex direction="column" justify="center" align="center" minH="100vh">
+        <Container>
+          <Text fontSize="xl" textAlign="center" marginBottom="10" className="fst-italic">Sign Up</Text>
+          <form className="action" method="post">
+            <div className="row g-2">
+              <InputBox
+                type="text"
+                id="name"
+                label="Name"
+                className="col-md-6"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <InputBox
+                type="email"
+                id="email"
+                label="Email Address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <InputBox
+                type="number"
+                id="phoneNumber"
+                label="Phone Number"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              />
+              <PasswordInput
+                value={password}
+                id="password"
+                label="Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <PasswordInput
+                label="Confirm Password"
+                id="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              <Button
+                variant="solid"
+                colorScheme="teal"
+                className="col-12"
+                w="100%"
+                marginTop="5"
+                onClick={signUp}
+                disabled={!email || !password || !phoneNumber || !confirmPassword || !name}
+              >
+                Sign Up
 
-            </Button>
-            <Text fontSize="sm" textAlign="center">
-              Already have an account?
-              <Link href="/"> Sign In</Link>
-            </Text>
-          </div>
-        </form>
-      </Container>
-    </Flex>
+              </Button>
+              <Text fontSize="sm" textAlign="center">
+                Already have an account?
+                <Link href="/"> Sign In</Link>
+              </Text>
+            </div>
+          </form>
+        </Container>
+      </Flex>
+    </>
   );
 };
 export default register;
