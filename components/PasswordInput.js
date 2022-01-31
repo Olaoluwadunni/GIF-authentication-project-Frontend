@@ -1,10 +1,12 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 
-const PassowordInput = ({ label, id }) => (
-  <div className="mb-3 col-12">
+const PassowordInput = ({
+  label, id, onChange, validate, others
+}) => (
+  <div className="col-12">
     <label htmlFor={id} className="form-label">{label}</label>
-    <input type="password" className="form-control" id={id} />
+    <input type="password" className={`form-control ${validate}`} {...others} onChange={onChange} id={id} />
   </div>
 );
 
