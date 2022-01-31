@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-alert */
 /* eslint-disable object-shorthand */
 /* eslint-disable no-console */
@@ -11,6 +12,7 @@ import {
   Button, Container, Flex, Text,
 } from '@chakra-ui/react';
 import Link from 'next/link';
+import jwt_decode from 'jwt-decode';
 import InputBox from '../components/InputBox';
 import PasswordInput from '../components/PasswordInput';
 import { baseUrl1 } from '../helpers/variables';
@@ -21,15 +23,12 @@ function Home() {
   const [password, setPassword] = useState('');
 
   const router = useRouter();
-  // form validation rules
   const validationSchema = Yup.object().shape({
     email: Yup.string().required('Email is required'),
     password: Yup.string().max(6).required('Password is required'),
   });
 
   const formOptions = { resolver: yupResolver(validationSchema) };
-
-  // get functions to build form with useForm() hook
   const { register, handleSubmit, formState: { errors } } = useForm(formOptions);
   // const { errors } = formState;
   const signIn = async (e) => {
@@ -44,6 +43,11 @@ function Home() {
         (response) => {
           console.log(response);
           const returnUrl = router.query.returnUrl || '/search-gif';
+          const { token } = response.data;
+          const decoded = jwt_decode(token);
+          localStorage.setItem('adminToken', decoded.role);
+          localStorage.setItem('token', token);
+          console.log(decoded);
           router.push(returnUrl);
         },
         (error) => {
@@ -51,6 +55,7 @@ function Home() {
         },
       );
   };
+
   return (
     <Flex direction="column" justify="center" align="center" minH="100vh">
       <Container>

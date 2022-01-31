@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-filename-extension */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import Cookie from 'js-cookie';
 import Link from 'next/link';
 import {
@@ -12,6 +12,7 @@ import getGIF from '../services/getGIF';
 const SearchGif = () => {
   const [searchInput, setSearchInput] = useState('');
   const [gif, setGif] = useState([]);
+  const [admin, setAdmin] = useState('')
   //   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
@@ -26,30 +27,21 @@ const SearchGif = () => {
     //   .finally(() => setIsLoading(false));
   };
 
-  //   const handleClick = async (item) => {
-  //     const newItem = [item];
-  //     console.log(item.url);
+  useEffect(() => {
+    const role = localStorage.getItem('adminToken');
+    setAdmin(role);
+    console.log('>>>>>>>', role);
+  }, []);
 
-  //     Cookie.set('gif', {
-  //       item: {
-  //         type: item.type,
-  //         id: item.id,
-  //         imageUrl: item.images.downsized.url,
-  //         title: item.title,
-  //         importDate: item.import_datetime,
-  //         userName: item.username,
-  //         rating: item.rating,
-  //         url: item.url,
-  //       },
-  //     });
-  //     localStorage.setItem('gif', JSON.stringify(newItem));
-  //     console.log(item.type, '---item');
-  //   };
   return (
     <div className="mt-4">
-      <Text textAlign="end" marginRight="5">
-        <Link href="/users">See Users</Link>
-      </Text>
+      {(admin === 'admin')
+        ? (
+          <Text textAlign="end" marginRight="5">
+            <Link href="/users">See Users</Link>
+          </Text>
+        )
+        : null}
       <Flex justifyContent="center" align="center" textAlign="center" className="col-12 col-md-12">
         <form className="d-flex mb-4 w-50">
           <input
