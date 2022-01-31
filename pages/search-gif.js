@@ -37,8 +37,8 @@ const SearchGif = () => {
     <div className="mt-4">
       {(admin === 'admin')
         ? (
-          <Text textAlign="end" marginRight="5">
-            <Link href="/users">See Users</Link>
+          <Text textAlign="end" marginRight="5" marginBottom="5">
+            <Link href="/users"><Button variant="solid" colorScheme="teal">See Users</Button></Link>
           </Text>
         )
         : null}
