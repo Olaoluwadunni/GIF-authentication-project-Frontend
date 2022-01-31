@@ -2,7 +2,7 @@
 import React from 'react';
 
 const InputBox = ({
-  id, type, label, onChange, validate, others
+  id, type, label, onChange, validate, others,
 }) => (
   <div className="col-12">
     <label htmlFor={id} className="form-label">{label}</label>

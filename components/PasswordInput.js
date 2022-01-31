@@ -2,7 +2,7 @@
 import React from 'react';
 
 const PassowordInput = ({
-  label, id, onChange, validate, others
+  label, id, onChange, validate, others,
 }) => (
   <div className="col-12">
     <label htmlFor={id} className="form-label">{label}</label>

@@ -1,6 +1,7 @@
+/* eslint-disable no-alert */
 /* eslint-disable object-shorthand */
 /* eslint-disable no-console */
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
