@@ -4,7 +4,7 @@ const baseUrl = 'https://api.giphy.com/v1/gifs/search';
 const gifId = 'https://api.giphy.com/v1/gifs/{gif_id}';
 console.log(baseUrl);
 console.log(apiKey);
-const baseUrl1 = process.env.NEXT_PUBLIC_BASE_URL;
+const baseUrl1 = process.env.NEXT_PUBLIC_API_URL;
 const token = 'userToken';
 // const admintoken = 'adminToken';
 // const lettersRegex = /^[a-zA-Z]*$/g;
