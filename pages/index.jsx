@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import jwt_decode from 'jwt-decode';
+import toast, { Toaster } from 'react-hot-toast';
 import InputBox from '../components/InputBox';
 import PasswordInput from '../components/PasswordInput';
 import { baseUrl1 } from '../helpers/variables';
@@ -48,10 +49,15 @@ function Home() {
           localStorage.setItem('adminToken', decoded.role);
           localStorage.setItem('token', token);
           console.log(decoded);
+          if (response.status === 201) {
+            console.log(response.data.data.message);
+            toast.success(response.data.data.message);
+          }
           router.push(returnUrl);
         },
         (error) => {
-          alert(error.response.data.message);
+          // alert(error.response.data.message);
+          toast.error(error.response.data.message);
         },
       );
   };
@@ -120,6 +126,7 @@ function Home() {
           </div>
         </form>
       </Container>
+      <Toaster />
     </Flex>
   );
 }

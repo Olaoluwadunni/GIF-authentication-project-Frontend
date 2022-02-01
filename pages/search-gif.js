@@ -17,6 +17,7 @@ const SearchGif = () => {
   const [searchInput, setSearchInput] = useState('');
   const [gif, setGif] = useState([]);
   const [admin, setAdmin] = useState('');
+  // const [isLoading, setIsLoading] = useState('');
   //   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
