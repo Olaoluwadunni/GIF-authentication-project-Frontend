@@ -54,7 +54,7 @@ function Home() {
             toast.success(response.data.message);
             setTimeout(() => {
               router.push(returnUrl);
-            }, 3000);
+            }, 2500);
             // router.push(returnUrl);
           }
         },
