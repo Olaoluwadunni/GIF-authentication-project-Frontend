@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-useless-escape */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable object-shorthand */
@@ -52,7 +53,7 @@ const registerUser = () => {
       .then((response) => {
         console.log(response);
         if (response.status === 201) {
-          toast.success(response.data.data.message);
+          toast.success(response.data.message);
           router.push('/');
         }
         console.log(name);

@@ -49,11 +49,14 @@ function Home() {
           localStorage.setItem('adminToken', decoded.role);
           localStorage.setItem('token', token);
           console.log(decoded);
-          if (response.status === 201) {
-            console.log(response.data.data.message);
-            toast.success(response.data.data.message);
+          if (response.status === 200) {
+            console.log(response.data.message);
+            toast.success(response.data.message);
+            setTimeout(() => {
+              router.push(returnUrl);
+            }, 3000);
+            // router.push(returnUrl);
           }
-          router.push(returnUrl);
         },
         (error) => {
           // alert(error.response.data.message);
