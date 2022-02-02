@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import {
-  Button, Container, Flex, Text,
+  Button, Container, Flex, Spinner, Text,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import jwt_decode from 'jwt-decode';
@@ -30,12 +30,12 @@ function Home() {
   });
 
   const formOptions = { resolver: yupResolver(validationSchema) };
-  const { register, handleSubmit, formState: { errors } } = useForm(formOptions);
-  // const { errors } = formState;
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm(formOptions);
+
   const signIn = async (e) => {
     console.log(email, password);
     // e.preventDefault();
-    axios
+    return axios
       .post(`${baseUrl1}/login`, {
         email: e.email,
         password: e.password,
@@ -61,6 +61,7 @@ function Home() {
         (error) => {
           // alert(error.response.data.message);
           toast.error(error.response.data.message);
+          console.log(error);
         },
       );
   };
@@ -109,7 +110,7 @@ function Home() {
               type="submit"
               disabled={!email || !password}
             >
-              Sign In
+              {isSubmitting ? <Spinner /> : (<Text>Sign In</Text>)}
             </Button>
             <div
               fontSize="xl"

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-filename-extension */
@@ -8,7 +9,7 @@ import { BiLogOutCircle } from 'react-icons/bi';
 // import Cookie from 'js-cookie';
 import Link from 'next/link';
 import {
-  Button, Flex, Text,
+  Button, Flex, Image, Text,
 } from '@chakra-ui/react';
 import router from 'next/router';
 import getGIF from '../services/getGIF';
@@ -32,9 +33,15 @@ const SearchGif = () => {
     //   .finally(() => setIsLoading(false));
   };
 
+  const logOut = () => {
+    localStorage.clear();
+    router.push('/');
+  };
+
   useEffect(() => {
     const role = localStorage.getItem('adminToken');
     const token = localStorage.getItem('token');
+    console.log(token);
     if (!token) {
       router.push('/');
     }
@@ -45,16 +52,10 @@ const SearchGif = () => {
   return (
     <div className="mt-4">
       <div className="d-flex justify-content-between">
-        <Link href="/">
-          <a>
-            <>
-              <Icon as={BiLogOutCircle} marginLeft="5" w={7} h={7} color="red.500" />
-              <span className="ms-1 text-danger">Sign out</span>
-            </>
-          </a>
-
-        </Link>
-
+        <Text cursor="pointer" onClick={logOut}>
+          <Icon as={BiLogOutCircle} marginLeft="5" w={7} h={7} color="red.500" />
+          <span className="ms-1 text-danger">Sign out</span>
+        </Text>
         {(admin === 'admin')
           ? (
             <Link href="/users"><Button variant="solid" colorScheme="teal" marginRight="5" size="xs">See Users</Button></Link>
@@ -78,25 +79,25 @@ const SearchGif = () => {
       <hr />
       <Text textAlign="center" marginTop="2" marginBottom="0">GIF:</Text>
       <div className="container">
-        {gif ? gif.map((item) => {
-          const { images } = item;
-          return (
-            <div>
-              <Link href="/gif-details">
-                <a>
-                  <img
-                    width="300em"
-                    height="250em"
+        <div className="row">
+          {gif ? gif.map((item, id) => {
+            const { images } = item;
+            return (
+              <Link href="/gif-details" key={id}>
+                <a className="col-6 col-md-3">
+                  <Image
+                    width="500px"
+                    height="250px"
                     src={images.downsized.url}
                     alt={images.downsized.url}
-                    className="me-4 mt-4 img-card img-fluid"
+                    className="img-card mt-4"
                   />
                 </a>
               </Link>
-            </div>
-          );
-        })
-          : <Text textAlign="center">Nothing to display here. Please search for something</Text>}
+            );
+          })
+            : <Text textAlign="center">Nothing to display here. Please search for something</Text>}
+        </div>
       </div>
     </div>
   );

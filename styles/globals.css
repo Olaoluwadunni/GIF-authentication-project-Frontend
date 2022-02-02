@@ -14,3 +14,17 @@ a {
 * {
   box-sizing: border-box;
 }
+.img-card {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius:3px;
+  transition:.2s all; 
+  border:1px solid #d6d6d6;
+  background-color: white;
+}
+.img-card:hover {
+  transform:scale(1);
+  filter:blur(0px);
+  opacity:1;
+  cursor: pointer;
+  transform: scale(.90);
+}

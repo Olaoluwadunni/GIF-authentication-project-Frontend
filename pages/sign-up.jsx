@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 /* eslint-disable no-alert */
 /* eslint-disable no-useless-escape */
 /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -6,7 +7,7 @@
 import { useState } from 'react';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
 import {
-  Button, Container, Flex, Text,
+  Button, Container, Flex, Text, Spinner,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import axios from 'axios';
@@ -25,7 +26,6 @@ const registerUser = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  // const notify = () => toast('Here is your toast.');
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Invalid email format'),
@@ -40,16 +40,21 @@ const registerUser = () => {
   });
 
   const formOptions = { resolver: yupResolver(validationSchema) };
-  const { register, handleSubmit, formState: { errors } } = useForm(formOptions);
-
+  const {
+    register, handleSubmit, formState: {
+      errors, isSubmitting, isDirty,
+    },
+  } = useForm(formOptions);
+  // const { isSubmitting } = formState;
   const signUp = async () => {
-    axios.post(`${baseUrl1}/register`, {
-      name: name,
-      email: email,
-      phone_number: phoneNumber,
-      password: password,
-      confirm_password: confirmPassword,
-    })
+    return axios
+      .post(`${baseUrl1}/register`, {
+        name: name,
+        email: email,
+        phone_number: phoneNumber,
+        password: password,
+        confirm_password: confirmPassword,
+      })
       .then((response) => {
         console.log(response);
         if (response.status === 201) {
@@ -143,9 +148,10 @@ const registerUser = () => {
                 w="100%"
                 marginTop="5"
                 type="submit"
-                disabled={!email || !password || !phoneNumber || !confirmPassword || !name}
+                // disabled={!email || !password || !phoneNumber || !confirmPassword || !name}
+                disabled={isSubmitting || !isDirty}
               >
-                Sign Up
+                {isSubmitting ? <Spinner /> : (<Text> Sign Up</Text>)}
 
               </Button>
               <Text fontSize="sm" textAlign="center">
