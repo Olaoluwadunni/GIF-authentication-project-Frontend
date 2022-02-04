@@ -38,7 +38,9 @@ const users = () => {
   useEffect(() => {
     getAllUsers();
     const token = localStorage.getItem('token');
-    if (!token || token !== 'admin') {
+    const adminToken = localStorage.getItem('adminToken');
+    console.log(token);
+    if (!token || adminToken !== 'admin') {
       router.push('/');
     }
   }, []);
