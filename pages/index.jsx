@@ -122,9 +122,9 @@ function Home() {
                 <Link href="/sign-up">Sign Up</Link>
               </Text>
               <Text fontSize="sm" className="cursor-pointer">
-                <Link href="/forgot-password" class="text-decoration-none">
+                {/* <Link href="/forgot-password" class="text-decoration-none">
                   Forgot Password?
-                </Link>
+                </Link> */}
               </Text>
             </div>
           </div>

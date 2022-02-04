@@ -83,14 +83,14 @@ const SearchGif = () => {
           {gif ? gif.map((item, id) => {
             const { images } = item;
             return (
-              <Link href="/gif-details" key={id}>
+              <Link href="#" key={id} className="img">
                 <a className="col-6 col-md-3">
                   <Image
                     width="500px"
                     height="250px"
                     src={images.downsized.url}
                     alt={images.downsized.url}
-                    className="img-card mt-4"
+                    className="mt-4"
                   />
                 </a>
               </Link>
