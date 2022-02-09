@@ -18,8 +18,6 @@ const SearchGif = () => {
   const [searchInput, setSearchInput] = useState('');
   const [gif, setGif] = useState([]);
   const [admin, setAdmin] = useState('');
-  // const [isLoading, setIsLoading] = useState('');
-  //   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,7 +28,6 @@ const SearchGif = () => {
         setGif(response?.data?.data);
       })
       .catch((err) => console.log(JSON.stringify(err)));
-    //   .finally(() => setIsLoading(false));
   };
 
   const logOut = () => {
@@ -49,6 +46,12 @@ const SearchGif = () => {
     console.log('>>>>>>>', role);
   }, []);
   console.log('%%%%%', admin);
+
+  const saveToLocalStorage = (item) => {
+    console.log(item);
+    localStorage.setItem('gifDetails', JSON.stringify(item));
+  };
+
   return (
     <div className="mt-4">
       <div className="d-flex justify-content-between">
@@ -82,9 +85,10 @@ const SearchGif = () => {
         <div className="row">
           {gif ? gif.map((item, id) => {
             const { images } = item;
+
             return (
-              <Link href="#" key={id} className="img">
-                <a className="col-6 col-md-3">
+              <Link href="/gif-information" key={id} className="img">
+                <a className="col-6 col-md-3" onClick={()=>saveToLocalStorage(item)}>
                   <Image
                     width="500px"
                     height="250px"
