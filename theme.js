@@ -3,7 +3,7 @@ import { extendTheme } from '@chakra-ui/react';
 const styles = {
   global: {
     body: {
-      fontFamily: 'Lato, sans-serif',
+      // fontFamily: 'Lato, sans-serif',
     },
     fontSizes: {
       xs: '0.75rem',
@@ -55,9 +55,27 @@ const styles = {
       80: '20rem',
       96: '24rem',
     },
+    fontWeights: {
+      hairline: 100,
+      thin: 200,
+      light: 300,
+      normal: 400,
+      medium: 500,
+      semibold: 600,
+      bold: 700,
+      extrabold: 800,
+      black: 900,
+    },
   },
 };
 
-const customTheme = extendTheme({ styles });
+const customTheme = extendTheme({
+  styles,
+  colors: {
+    brand: {
+      100: '#7D7D7D',
+    },
+  },
+});
 
 export default customTheme;

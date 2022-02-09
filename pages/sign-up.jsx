@@ -5,9 +5,8 @@
 /* eslint-disable object-shorthand */
 /* eslint-disable no-console */
 import { useState } from 'react';
-import { ArrowLeftIcon } from '@chakra-ui/icons';
 import {
-  Button, Container, Flex, Text, Spinner,
+  Button, Container, Flex, Text, Spinner, Select,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import axios from 'axios';
@@ -21,7 +20,8 @@ import PasswordInput from '../components/PasswordInput';
 import { baseUrl1 } from '../helpers/variables';
 
 const registerUser = () => {
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -49,7 +49,8 @@ const registerUser = () => {
   const signUp = async () => {
     return axios
       .post(`${baseUrl1}/register`, {
-        name: name,
+        first_name: firstName,
+        last_name: lastName,
         email: email,
         phone_number: phoneNumber,
         password: password,
@@ -61,7 +62,7 @@ const registerUser = () => {
           toast.success(response.data.message);
           router.push('/');
         }
-        console.log(name);
+        console.log(firstName, lastName);
       }, (error) => {
         toast.error(error.response.data.message);
         console.log(error);
@@ -69,31 +70,40 @@ const registerUser = () => {
   };
   return (
     <>
-      <Link href="/">
-        <a>
-          <ArrowLeftIcon marginTop="6" marginLeft="5" textAlign="start" />
-        </a>
-      </Link>
       <Flex direction="column" justify="center" align="center" minH="100vh">
         <Container>
-          <Text fontSize="xl" textAlign="center" marginBottom="10" className="fst-italic">Sign Up</Text>
+          <Text fontSize="xl" textAlign="center" fontWeight="semibold" marginBottom="10" className="fst-italic">Sign Up</Text>
           <form className="action" method="post" onSubmit={handleSubmit(signUp)}>
-            <div className="row g-2">
-              <div className="mb-3">
+            <div className="row">
+              <div className="mb-3 col-12 col-md-6">
                 <InputBox
                   type="text"
-                  id="name"
-                  label="Name"
-                  className="col-md-6"
+                  id="firstName"
+                  label="First Name"
+                  className="col-6"
                   others={register('name')}
                   // validate={errors.name ? 'is-invalid' : ''}
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                 />
-
                 <div className="text-danger mt-1">{errors.name?.message}</div>
               </div>
-              <div className="mb-3">
+              <div className="mb-3 col-12 col-md-6">
+                <InputBox
+                  type="text"
+                  id="lastName"
+                  label="Last Name"
+                  className="col-6"
+                  others={register('lastName')}
+                  // validate={errors.name ? 'is-invalid' : ''}
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+                <div className="text-danger mt-1">{errors.name?.message}</div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="mb-3 col-12 col-md-6">
                 <InputBox
                   type="email"
                   id="email"
@@ -106,7 +116,7 @@ const registerUser = () => {
 
                 <div className="text-danger mt-1">{errors.email?.message}</div>
               </div>
-              <div className="mb-3">
+              <div className="mb-3 col-12 col-md-6">
                 <InputBox
                   type="number"
                   id="phoneNumber"
@@ -119,7 +129,13 @@ const registerUser = () => {
 
                 <div className="text-danger mt-1">{errors.phoneNumber?.message}</div>
               </div>
-              <div className="mb-3">
+            </div>
+            <Select placeholder="Select your gender" className="mt-1 mb-3">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </Select>
+            <div className="row">
+              <div className="mb-3 col-12 col-md-6">
                 <PasswordInput
                   value={password}
                   id="password"
@@ -130,7 +146,7 @@ const registerUser = () => {
 
                 <div className="text-danger mt-1">{errors.password?.message}</div>
               </div>
-              <div className="mb-3">
+              <div className="mb-3 col-12 col-md-6">
                 <PasswordInput
                   label="Confirm Password"
                   id="confirmPassword"
@@ -140,7 +156,6 @@ const registerUser = () => {
                 />
                 <div className="text-danger mt-1">{errors.passwordConfirmation?.message}</div>
               </div>
-
               <Button
                 variant="solid"
                 colorScheme="teal"

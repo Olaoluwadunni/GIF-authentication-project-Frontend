@@ -1,9 +1,8 @@
-
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lato';
 }
 
 a {
@@ -27,4 +26,18 @@ a {
   opacity:1;
   cursor: pointer;
   transform: scale(.90);
+}
+/* passwordInput styles */
+.paswword-wrapper {
+  position: relative;
+  /* background-color: RED; */
+  /* border: 30px solid black; */
+}
+eyeIcon {
+  position: absolute;
+  top: 31%;
+  right: 94%;
+}
+eyeIcon:hover {
+  cursor: pointer;
 }

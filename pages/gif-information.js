@@ -7,7 +7,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
-import { BsEyeSlash, BsEye } from 'react-icons/bs';
 import {
   Text,
   Flex,

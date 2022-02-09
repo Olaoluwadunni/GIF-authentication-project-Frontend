@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/interactive-supports-focus */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable arrow-spacing */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-console */
@@ -88,7 +91,7 @@ const SearchGif = () => {
 
             return (
               <Link href="/gif-information" key={id} className="img">
-                <a className="col-6 col-md-3" onClick={()=>saveToLocalStorage(item)}>
+                <a role="link" className="col-6 col-md-3" onClick={()=>saveToLocalStorage(item)}>
                   <Image
                     width="500px"
                     height="250px"

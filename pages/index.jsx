@@ -67,12 +67,14 @@ function Home() {
   };
 
   return (
+
     <Flex direction="column" justify="center" align="center" minH="100vh">
       <Container>
         <Text
-          fontSize="xl"
+          fontSize="2xl"
           textAlign="center"
           marginBottom="10"
+          fontWeight="semibold"
           className="fst-italic"
         >
           Log In
@@ -98,6 +100,11 @@ function Home() {
               others={register('password')}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <Text fontSize="sm" className="cursor-pointer" textAlign="end" marginTop="1">
+              <Link href="/forgot-password" class="text-decoration-none">
+                Forgot Password?
+              </Link>
+            </Text>
             <div className="text-danger mt-1">{errors.password?.message}</div>
           </div>
           <div>
@@ -120,11 +127,6 @@ function Home() {
                 {/* eslint-disable-next-line react/no-unescaped-entities */}
                 Don't have an account yet?
                 <Link href="/sign-up">Sign Up</Link>
-              </Text>
-              <Text fontSize="sm" className="cursor-pointer">
-                {/* <Link href="/forgot-password" class="text-decoration-none">
-                  Forgot Password?
-                </Link> */}
               </Text>
             </div>
           </div>
