@@ -55,11 +55,10 @@ function Home() {
             setTimeout(() => {
               router.push(returnUrl);
             }, 2000);
-            // router.push(returnUrl);
           }
         },
         (error) => {
-          // alert(error.response.data.message);
+          alert(error.response.data.message);
           toast.error(error.response.data.message);
           console.log(error);
         },
