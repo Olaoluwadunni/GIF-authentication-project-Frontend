@@ -140,6 +140,7 @@ const registerUser = () => {
               placeholder="Select your gender"
               name="gender"
               id="gender"
+              {...register('gender')}
               className="mt-1 mb-3"
               onChange={(e) => setGender(e.target.value)}
             >

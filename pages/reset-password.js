@@ -18,11 +18,11 @@ import { baseUrl1 } from '../helpers/variables';
 
 const resetPassword = () => {
   const [newPassword, setNewPassword] = useState('');
-  const [confirmNewPassword, setconfirmNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [resetCode, setResetCode] = useState('');
 
   const validationSchema = Yup.object().shape({
-    pin: Yup.string().max(7).required('Reset Pin is required'),
+    resetCode: Yup.string().max(8).required('Reset Pin is required'),
     password: Yup.string().max(6).required('Password is required').matches(
       /([a-zA-Z]{4})([0-9]{1})([!@$%^&#*]{1})$/,
       'Password must Contain 4 Characters, One Number and one special case Character',
@@ -41,9 +41,9 @@ const resetPassword = () => {
   const resetMyPassword = async (e) => {
     console.log('ghana jollof');
     return axios
-      .post(`${baseUrl1}/reset-password`, {
+      .put(`${baseUrl1}/reset-password`, {
+        password: e.password,
         reset_code: e.resetCode,
-        password: e.newPassword,
       })
       .then((response) => {
         console.log(response);
@@ -51,6 +51,7 @@ const resetPassword = () => {
           toast.success(response.data.message);
           router.push('/');
         }
+        console.log(newPassword);
       }, (error) => {
         toast.error(error.response.data.message);
         console.log(error);
@@ -67,22 +68,22 @@ const resetPassword = () => {
               <div className="mb-3">
                 <InputBox
                   type="text"
-                  id="email"
+                  id="resetCode"
                   label="Reset Code"
                   className="col-md-6"
                   value={resetCode}
                   others={register('resetCode')}
-                  // validate={errors.resetCode ? 'is-invalid' : ''}
+                  validate={errors.resetCode ? 'is-invalid' : ''}
                   onChange={(e) => setResetCode(e.target.value)}
                 />
-                <div className="text-danger mt-1">{errors.resetCode?.message}</div>
+                <div className="text-danger mt-1">{errors?.resetCode?.message}</div>
               </div>
               <div className="mb-3">
                 <PasswordInput
                   label="New Password"
                   value={newPassword}
                   id="password"
-                  // validate={errors.newPassword ? 'is-invalid' : ''}
+                  validate={errors.newPassword ? 'is-invalid' : ''}
                   others={register('password')}
                   onChange={(e) => setNewPassword(e.target.value)}
                 />
@@ -93,9 +94,9 @@ const resetPassword = () => {
                   label="Confirm New Password"
                   value={confirmNewPassword}
                   id="confirmNewPassword"
-                  // validate={errors.confirmNewPassword ? 'is-invalid' : ''}
-                  others={register('confirmNewPassword')}
-                  onChange={(e) => setconfirmNewPassword(e.target.value)}
+                  validate={errors.confirmNewPassword ? 'is-invalid' : ''}
+                  others={register('passwordConfirmation')}
+                  onChange={(e) => setConfirmNewPassword(e.target.value)}
                 />
                 <div className="text-danger mt-1">{errors.passwordConfirmation?.message}</div>
               </div>
