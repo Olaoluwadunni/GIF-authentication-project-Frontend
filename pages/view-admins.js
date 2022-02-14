@@ -19,28 +19,28 @@ import axios from 'axios';
 import router from 'next/router';
 import { baseUrl1 } from '../helpers/variables';
 
-const users = () => {
+const admins = () => {
   const [response, setResponse] = useState([]);
 
-  const getAllUsers = async () => {
+  const getAllAdmins = async () => {
     const token = localStorage.getItem('token');
     const config = {
       headers: { 'x-access-token': token },
     };
-    axios.get(`${baseUrl1}/users`, config)
+    axios.get(`${baseUrl1}/admins`, config)
       .then((res) => {
         console.log('dfhdajsgj', res);
-        setResponse(res.data.data);
+        setResponse(res.data.admins);
       }, (error) => {
         console.log(error);
       });
   };
   useEffect(() => {
-    getAllUsers();
+    getAllAdmins();
     const token = localStorage.getItem('token');
     const adminToken = localStorage.getItem('adminToken');
     console.log(token);
-    if (!token || adminToken !== 'admin') {
+    if (!token || adminToken !== 'super-admin') {
       router.push('/');
     }
   }, []);
@@ -56,25 +56,29 @@ const users = () => {
       <Container>
         <Flex justifyContent="center" direction="column" alignItems="center" minH="60vh">
           <Text fontStyle="italic" fontSize="xl" marginBottom="6" fontWeight="bold">
-            List of Users
+            List of Admins
           </Text>
           <Table variant="striped">
-            <TableCaption>This can only be seen by admin</TableCaption>
+            <TableCaption>This can only be seen by super-admin</TableCaption>
             <Thead>
               <Tr>
                 <Th textAlign="center">id</Th>
-                <Th textAlign="center">Name</Th>
-                <Th textAlign="center">Email Address</Th>
+                <Th textAlign="center">First Name</Th>
+                <Th textAlign="center">Last Name</Th>
+                <Th textAlign="center">Email</Th>
                 <Th textAlign="center">Phone Number</Th>
+                <Th textAlign="center">Gender</Th>
               </Tr>
             </Thead>
             <Tbody>
               {response.map((item) => (
                 <Tr key={item.id}>
                   <Td textAlign="center">{item.id}</Td>
-                  <Td textAlign="center">{item.name}</Td>
+                  <Td textAlign="center">{item.first_name}</Td>
+                  <Td textAlign="center">{item.last_name}</Td>
                   <Td textAlign="center">{item.email}</Td>
                   <Td textAlign="center">{item.phone_number}</Td>
+                  <Td textAlign="center">{item.gender}</Td>
                 </Tr>
               ))}
             </Tbody>
@@ -85,4 +89,4 @@ const users = () => {
   );
 };
 
-export default users;
+export default admins;

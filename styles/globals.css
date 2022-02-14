@@ -41,3 +41,11 @@ eyeIcon {
 eyeIcon:hover {
   cursor: pointer;
 }
+.search-wrapper {
+  position: relative;
+}
+.search-icon {
+  position: absolute;
+  top: 31%;
+  right: 97%;
+}

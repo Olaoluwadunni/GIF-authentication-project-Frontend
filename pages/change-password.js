@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-filename-extension */
@@ -13,22 +14,23 @@ import axios from 'axios';
 import router from 'next/router';
 import toast, { Toaster } from 'react-hot-toast';
 import PasswordInput from '../components/PasswordInput';
-import InputBox from '../components/InputBox';
 import { baseUrl1 } from '../helpers/variables';
 
-const resetPassword = () => {
+const changePassword = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
-  const [resetCode, setResetCode] = useState('');
-
+  const [oldPassword, setOldPassword] = useState('');
   const validationSchema = Yup.object().shape({
-    resetCode: Yup.string().max(8).required('Reset Pin is required'),
-    password: Yup.string().max(6).required('Password is required').matches(
+    oldPassword: Yup.string().max(6, 'Old password must be at most 6 characters').required('Password is required').matches(
+      /([a-zA-Z]{4})([0-9]{1})([!@$%^&#*]{1})$/,
+      'Password must Contain 4 Characters, One Number and one special case Character',
+    ),
+    newPassword: Yup.string().max(6, 'New password must be at most 6 characters').required('Password is required').matches(
       /([a-zA-Z]{4})([0-9]{1})([!@$%^&#*]{1})$/,
       'Password must Contain 4 Characters, One Number and one special case Character',
     ),
     passwordConfirmation: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+      .oneOf([Yup.ref('newPassword'), null], 'Passwords must match'),
   });
 
   const formOptions = { resolver: yupResolver(validationSchema) };
@@ -38,18 +40,23 @@ const resetPassword = () => {
     },
   } = useForm(formOptions);
 
-  const resetMyPassword = async (e) => {
-    console.log('ghana jollof');
+  const changeMyPassword = async (e) => {
+    console.log('potato');
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: { 'x-access-token': token },
+    };
     return axios
-      .put(`${baseUrl1}/reset-password`, {
-        password: e.password,
-        reset_code: e.resetCode,
-      })
+      .put(`${baseUrl1}/change-password`, {
+        old_password: e.oldPassword,
+        new_password: e.newPassword,
+        confirm_password: e.confirmPassword,
+      }, config)
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
           toast.success(response.data.message);
-          router.push('/reset-successful');
+          router.push('/search-gif');
         }
         console.log(newPassword);
       }, (error) => {
@@ -61,33 +68,31 @@ const resetPassword = () => {
     <div>
       <Flex direction="column" justify="center" align="center" minH="100vh">
         <Container>
-          <Text fontSize="2xl" textAlign="center" marginBottom="1" fontWeight="medium">Reset Password</Text>
-          <Text fontSize="xm" textAlign="" marginBottom="8" className="fw-semibold" color="brand.100">Enter the code that was sent to your email, your new password and confirm it.</Text>
-          <form className="action" method="post" onSubmit={handleSubmit(resetMyPassword)}>
+          <Text fontSize="2xl" textAlign="center" marginBottom="1" fontWeight="medium">Change Password</Text>
+          <Text fontSize="xm" textAlign="center" marginBottom="8" className="fw-semibold" color="brand.100">Enter your old password, your new password and confirm it.</Text>
+          <form className="action" method="post" onSubmit={handleSubmit(changeMyPassword)}>
             <div className="row g-2">
               <div className="mb-3">
-                <InputBox
-                  type="text"
-                  id="resetCode"
-                  label="Reset Code"
-                  className="col-md-6"
-                  value={resetCode}
-                  others={register('resetCode')}
-                  validate={errors.resetCode ? 'is-invalid' : ''}
-                  onChange={(e) => setResetCode(e.target.value)}
+                <PasswordInput
+                  label="Old Password"
+                  value={oldPassword}
+                  id="password"
+                  validate={errors.password ? 'is-invalid' : ''}
+                  others={register('oldPassword')}
+                  onChange={(e) => setOldPassword(e.target.value)}
                 />
-                <div className="text-danger mt-1">{errors?.resetCode?.message}</div>
+                <div className="text-danger mt-1">{errors.oldPassword?.message}</div>
               </div>
               <div className="mb-3">
                 <PasswordInput
                   label="New Password"
                   value={newPassword}
                   id="password"
-                  validate={errors.newPassword ? 'is-invalid' : ''}
-                  others={register('password')}
+                  validate={errors.password ? 'is-invalid' : ''}
+                  others={register('newPassword')}
                   onChange={(e) => setNewPassword(e.target.value)}
                 />
-                <div className="text-danger mt-1">{errors.password?.message}</div>
+                <div className="text-danger mt-1">{errors.newPassword?.message}</div>
               </div>
               <div className="mb-3">
                 <PasswordInput
@@ -107,9 +112,9 @@ const resetPassword = () => {
                 w="100%"
                 marginTop="5"
                 type="submit"
-                disabled={!resetCode || !newPassword || !confirmNewPassword}
+                disabled={!oldPassword || !newPassword || !confirmNewPassword}
               >
-                {isSubmitting ? <Spinner /> : (<Text> Reset Password</Text>)}
+                {isSubmitting ? <Spinner /> : (<Text> Change Password</Text>)}
               </Button>
             </div>
           </form>
@@ -120,4 +125,4 @@ const resetPassword = () => {
   );
 };
 
-export default resetPassword;
+export default changePassword;

@@ -35,9 +35,14 @@ const gifInformation = () => {
           <Text fontStyle="italic" fontSize="xl" marginBottom="6" fontWeight="bold">
             GIF information
           </Text>
-          <Flex justifyContent="center" alignItems="center" direction="column">
-            <Image src={gifDetails?.images?.downsized?.url} />
-            <Box p="4" border="1px" borderColor="gray.200">
+          <Flex justifyContent="center" alignItems="center" direction="">
+            <Image
+              src={gifDetails?.images?.downsized?.url}
+              width="500"
+              height="250"
+              className="col-6 me-4"
+            />
+            <Box p="4" border="1px" borderColor="gray.200" className="col-6">
               <Text marginTop="4" marginBottom="1">
                 <span className="fw-bold">Id:   </span>
                 {gifDetails.id}

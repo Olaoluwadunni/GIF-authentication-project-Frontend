@@ -11,12 +11,14 @@ import * as Yup from 'yup';
 import {
   Button, Container, Flex, Spinner, Text,
 } from '@chakra-ui/react';
+import Image from 'next/image';
 import Link from 'next/link';
 import jwt_decode from 'jwt-decode';
 import toast, { Toaster } from 'react-hot-toast';
 import InputBox from '../components/InputBox';
 import PasswordInput from '../components/PasswordInput';
 import { baseUrl1 } from '../helpers/variables';
+import logo from '../public/logo.svg';
 // import AuthService from '../services/auth';
 
 function Home() {
@@ -46,6 +48,7 @@ function Home() {
           const returnUrl = router.query.returnUrl || '/search-gif';
           const { token } = response.data;
           const decoded = jwt_decode(token);
+          // console.log(decoded);
           localStorage.setItem('adminToken', decoded.role);
           localStorage.setItem('token', token);
           console.log(decoded);
@@ -66,73 +69,75 @@ function Home() {
   };
 
   return (
-
-    <Flex direction="column" justify="center" align="center" minH="100vh">
-      <Container>
-        <Text
-          fontSize="2xl"
-          textAlign="center"
-          marginBottom="10"
-          fontWeight="semibold"
-          className="fst-italic"
-        >
-          Log In
-        </Text>
-        <form className="col-12" onSubmit={handleSubmit(signIn)}>
-          <div className="mb-3">
-            <InputBox
-              type="email"
-              id="email"
-              label="Email Address"
-              validate={errors.email ? 'is-invalid' : ''}
-              value={email}
-              others={register('email')}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <div className="text-danger mt-1">{errors.email?.message}</div>
-          </div>
-          <div>
-            <PasswordInput
-              label="Password"
-              value={password}
-              validate={errors.password ? 'is-invalid' : ''}
-              others={register('password')}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <Text fontSize="sm" className="cursor-pointer" textAlign="end" marginTop="1">
-              <Link href="/forgot-password" class="text-decoration-none">
-                Forgot Password?
-              </Link>
-            </Text>
-            <div className="text-danger mt-1">{errors.password?.message}</div>
-          </div>
-          <div>
-            <Button
-              variant="solid"
-              colorScheme="teal"
-              className="col-12"
-              w="100%"
-              marginTop="5"
-              type="submit"
-              disabled={!email || !password}
-            >
-              {isSubmitting ? <Spinner /> : (<Text>Sign In</Text>)}
-            </Button>
-            <div
-              fontSize="xl"
-              className="d-flex justify-content-between fst-italic mt-2"
-            >
-              <Text fontSize="sm">
-                {/* eslint-disable-next-line react/no-unescaped-entities */}
-                Don't have an account yet?
-                <Link href="/sign-up">Sign Up</Link>
-              </Text>
+    <>
+      <Image src={logo} alt="forgot password icon" className="mt-2 ms-2" />
+      <Flex direction="column" justify="center" align="center" minH="100vh">
+        <Container>
+          <Text
+            fontSize="2xl"
+            textAlign="center"
+            marginBottom="10"
+            fontWeight="semibold"
+            className="fst-italic"
+          >
+            Log In
+          </Text>
+          <form className="col-12" onSubmit={handleSubmit(signIn)}>
+            <div className="mb-3">
+              <InputBox
+                type="email"
+                id="email"
+                label="Email Address"
+                validate={errors.email ? 'is-invalid' : ''}
+                value={email}
+                others={register('email')}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <div className="text-danger mt-1">{errors.email?.message}</div>
             </div>
-          </div>
-        </form>
-      </Container>
-      <Toaster />
-    </Flex>
+            <div>
+              <PasswordInput
+                label="Password"
+                value={password}
+                validate={errors.password ? 'is-invalid' : ''}
+                others={register('password')}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <Text fontSize="sm" className="cursor-pointer" textAlign="end" marginTop="1">
+                <Link href="/forgot-password" class="text-decoration-none">
+                  Forgot Password?
+                </Link>
+              </Text>
+              <div className="text-danger mt-1">{errors.password?.message}</div>
+            </div>
+            <div>
+              <Button
+                variant="solid"
+                colorScheme="teal"
+                className="col-12"
+                w="100%"
+                marginTop="5"
+                type="submit"
+                disabled={!email || !password}
+              >
+                {isSubmitting ? <Spinner /> : (<Text>Sign In</Text>)}
+              </Button>
+              <div
+                fontSize="xl"
+                className="d-flex justify-content-between fst-italic mt-2"
+              >
+                <Text fontSize="sm">
+                  {/* eslint-disable-next-line react/no-unescaped-entities */}
+                  Don't have an account yet?
+                  <Link href="/sign-up">Sign Up</Link>
+                </Text>
+              </div>
+            </div>
+          </form>
+        </Container>
+        <Toaster />
+      </Flex>
+    </>
   );
 }
 
