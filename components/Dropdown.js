@@ -73,11 +73,14 @@ const Dropdown = ({ admin }) => {
               <BiEdit className="ms-2" />
             </MenuItem>
           </Link>
-          <MenuItem onClick={onOpen}>
-            Edit Profile
-            {' '}
-            <BiEdit className="ms-2" />
-          </MenuItem>
+          {(admin === 'admin')
+            ? (
+              <MenuItem onClick={onOpen}>
+                Edit Profile
+                {' '}
+                <BiEdit className="ms-2" />
+              </MenuItem>
+            ) : null}
           <MenuItem onClick={logOut}>
             Sign out
             {' '}
