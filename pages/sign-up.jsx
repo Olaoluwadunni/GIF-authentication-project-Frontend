@@ -47,7 +47,6 @@ const registerUser = () => {
       errors, isSubmitting,
     },
   } = useForm(formOptions);
-  // const { isSubmitting } = formState;
   const signUp = async (e) => {
     console.log(firstName, lastName);
     // console.log(gender)
@@ -179,7 +178,6 @@ const registerUser = () => {
               type="submit"
               disabled={!email || !password || !phoneNumber
               || !confirmPassword || !firstName || !lastName}
-              // disabled={isSubmitting || !isDirty}
             >
               {isSubmitting ? <Spinner /> : (<Text> Sign Up</Text>)}
 

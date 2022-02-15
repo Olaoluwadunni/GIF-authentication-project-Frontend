@@ -2,7 +2,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable object-shorthand */
 /* eslint-disable no-console */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
@@ -33,6 +33,14 @@ function Home() {
 
   const formOptions = { resolver: yupResolver(validationSchema) };
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm(formOptions);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      router.push('/search-gif');
+    }
+  }, []);
 
   const signIn = async (e) => {
     console.log(email, password);
