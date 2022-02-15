@@ -2,9 +2,8 @@
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/jsx-no-undef */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import router from 'next/router';
 import {
   Drawer,
   DrawerBody,
@@ -36,27 +35,55 @@ function EditProfile({ firstField, isOpen, onClose }) {
       isSubmitting,
     },
   } = useForm();
+  const getAdminProfile = async () => {
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: { 'x-access-token': token },
+    };
+    return axios
+      .get(`${baseUrl1}/profile`, config)
+      .then((response) => {
+        console.log(response.data);
+        const { data } = response.data;
 
+        setFirstName(data.first_name);
+        setLastName(data.last_name);
+        setPhoneNumber(data.phone_number);
+        setGender(data.gender);
+        // if (response.status === 200) {
+        //   toast.success(response.data.message);
+        // }
+      }, (error) => {
+        // toast.error(error.response.data.message);
+        console.log(error.message);
+      });
+  };
+  useEffect(() => {
+    getAdminProfile();
+  }, []);
   const editProfile = async (e) => {
     console.log(firstName, lastName);
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: { 'x-access-token': token },
+    };
     // console.log(gender)
     return axios
-      .post(`${baseUrl1}/register`, {
+      .put(`${baseUrl1}/update`, {
         first_name: e.firstName,
         last_name: e.lastName,
         phone_number: Number(e.phoneNumber),
         gender: gender,
-      })
+      }, config)
       .then((response) => {
         console.log(response);
-        if (response.status === 201) {
+        if (response.status === 200) {
           toast.success(response.data.message);
-          router.push('/');
         }
         console.log(firstName, lastName);
       }, (error) => {
         toast.error(error.response.data.message);
-        console.log(error);
+        console.log(error.message);
       });
   };
   return (
@@ -115,6 +142,7 @@ function EditProfile({ firstField, isOpen, onClose }) {
                   id="gender"
                   {...register('gender')}
                   className="mt-1"
+                  value={gender}
                   onChange={(e) => setGender(e.target.value)}
                 >
                   <option value="male">Male</option>
@@ -129,7 +157,7 @@ function EditProfile({ firstField, isOpen, onClose }) {
             </Button>
             <Button
               colorScheme="teal"
-              onSubmit={handleSubmit(editProfile)}
+              onClick={handleSubmit(editProfile)}
               disabled={!phoneNumber || !firstName || !lastName || !gender}
             >
               {isSubmitting ? <Spinner /> : (<Text> Submit </Text>)}
