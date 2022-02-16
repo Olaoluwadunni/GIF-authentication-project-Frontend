@@ -1,13 +1,22 @@
+/* eslint-disable no-console */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
+import router from 'next/router';
 import {
   Flex, Text, Container, Button, Box,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import Success from '../public/confetti.png';
 
+useEffect(() => {
+  const token = localStorage.getItem('token');
+  console.log(token);
+  if (!token) {
+    router.push('/');
+  }
+}, []);
 const resetSuccessful = () => (
   <div>
     <Flex direction="column" justify="center" align="center" minH="100vh">

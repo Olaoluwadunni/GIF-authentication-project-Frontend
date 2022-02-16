@@ -91,6 +91,7 @@ const registerAdmin = () => {
                   type="text"
                   id="firstName"
                   label="First Name"
+                  placeholder="John"
                   className="col-6"
                   others={register('firstName')}
                   validate={errors.firstName ? 'is-invalid' : ''}
@@ -104,6 +105,7 @@ const registerAdmin = () => {
                   type="text"
                   id="lastName"
                   label="Last Name"
+                  placeholder="Doe"
                   className="col-6"
                   others={register('lastName')}
                   validate={errors.lastName ? 'is-invalid' : ''}
@@ -119,6 +121,7 @@ const registerAdmin = () => {
                   type="email"
                   id="email"
                   label="Email Address"
+                  placeholder="johndoe@email.com"
                   value={email}
                   others={register('email')}
                   validate={errors.email ? 'is-invalid' : ''}
@@ -131,6 +134,7 @@ const registerAdmin = () => {
                 <InputBox
                   type="number"
                   id="phoneNumber"
+                  placeholder="08023456789"
                   label="Phone Number"
                   others={register('phoneNumber')}
                   value={phoneNumber}

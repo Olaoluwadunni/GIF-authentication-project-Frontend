@@ -85,6 +85,7 @@ const registerUser = () => {
                   type="text"
                   id="firstName"
                   label="First Name"
+                  placeholder="John"
                   className="col-6"
                   others={register('firstName')}
                   validate={errors.firstName ? 'is-invalid' : ''}
@@ -98,6 +99,7 @@ const registerUser = () => {
                   type="text"
                   id="lastName"
                   label="Last Name"
+                  placeholder="Doe"
                   className="col-6"
                   others={register('lastName')}
                   validate={errors.lastName ? 'is-invalid' : ''}
@@ -113,6 +115,7 @@ const registerUser = () => {
                   type="email"
                   id="email"
                   label="Email Address"
+                  placeholder="johndoe@email.com"
                   value={email}
                   others={register('email')}
                   validate={errors.email ? 'is-invalid' : ''}
@@ -126,6 +129,7 @@ const registerUser = () => {
                   type="number"
                   id="phoneNumber"
                   label="Phone Number"
+                  placeholder="08023456789"
                   others={register('phoneNumber')}
                   value={phoneNumber}
                   validate={errors.phone_number ? 'is-invalid' : ''}

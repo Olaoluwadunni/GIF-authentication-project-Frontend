@@ -96,6 +96,7 @@ function Home() {
                 type="email"
                 id="email"
                 label="Email Address"
+                placeholder="johndoe@email.com"
                 validate={errors.email ? 'is-invalid' : ''}
                 value={email}
                 others={register('email')}

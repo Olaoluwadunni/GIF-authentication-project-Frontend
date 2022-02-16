@@ -3,7 +3,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/jsx-no-undef */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Button, Container, Flex, Text, Spinner,
 } from '@chakra-ui/react';
@@ -40,6 +40,13 @@ const changePassword = () => {
     },
   } = useForm(formOptions);
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    if (!token) {
+      router.push('/');
+    }
+  }, []);
   const changeMyPassword = async (e) => {
     console.log('potato');
     const token = localStorage.getItem('token');
