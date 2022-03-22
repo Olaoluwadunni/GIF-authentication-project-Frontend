@@ -88,7 +88,7 @@ const registerUser = () => {
                   placeholder="John"
                   className="col-6"
                   others={register('firstName')}
-                  validate={errors.firstName ? 'is-invalid' : ''}
+                  // validate={errors.firstName ? 'is-invalid' : ''}
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                 />
@@ -102,7 +102,7 @@ const registerUser = () => {
                   placeholder="Doe"
                   className="col-6"
                   others={register('lastName')}
-                  validate={errors.lastName ? 'is-invalid' : ''}
+                  // validate={errors.lastName ? 'is-invalid' : ''}
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                 />
@@ -118,7 +118,7 @@ const registerUser = () => {
                   placeholder="johndoe@email.com"
                   value={email}
                   others={register('email')}
-                  validate={errors.email ? 'is-invalid' : ''}
+                  // validate={errors.email ? 'is-invalid' : ''}
                   onChange={(e) => setEmail(e.target.value)}
                 />
 

@@ -21,7 +21,7 @@ import { baseUrl1 } from '../helpers/variables';
 import logo from '../public/logo.svg';
 // import AuthService from '../services/auth';
 
-function Home() {
+export default function Home() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -59,7 +59,7 @@ function Home() {
           // console.log(decoded);
           localStorage.setItem('adminToken', decoded.role);
           localStorage.setItem('token', token);
-          console.log(decoded);
+          // console.log(decoded);
           if (response.status === 200) {
             console.log(response.data.message);
             toast.success(response.data.message);
@@ -149,5 +149,3 @@ function Home() {
     </>
   );
 }
-
-export default Home;
